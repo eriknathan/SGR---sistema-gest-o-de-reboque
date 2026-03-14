@@ -1,0 +1,96 @@
+{% extends 'core/base.html' %}
+
+{% block page_title %}Registrar Pagamento{% endblock %}
+
+{% block topbar_actions %}
+  <a href="{% url 'drivers:detail' driver.pk %}"
+     class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Voltar
+  </a>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Subtítulo com nome do motorista -->
+  <p class="text-sm text-[#6b7280] mb-6">
+    Motorista:
+    <a href="{% url 'drivers:detail' driver.pk %}" class="font-medium text-[#1a2c42] hover:text-[#e85d36] transition-colors">
+      {{ driver.name }}
+    </a>
+  </p>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="space-y-6 max-w-2xl">
+
+      <!-- Card do formulário -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <h2 class="text-base font-semibold text-[#1a2c42] mb-5 pb-3 border-b border-gray-100">Dados do Pagamento</h2>
+
+        <div class="space-y-5">
+
+          <!-- Valor -->
+          <div class="space-y-1.5">
+            <label for="{{ form.amount.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Valor (R$) <span class="text-red-500">*</span>
+            </label>
+            {{ form.amount }}
+            {% if form.amount.errors %}
+              {% for error in form.amount.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Data do Pagamento -->
+          <div class="space-y-1.5">
+            <label for="{{ form.payment_date.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Data do Pagamento <span class="text-red-500">*</span>
+            </label>
+            {{ form.payment_date }}
+            {% if form.payment_date.errors %}
+              {% for error in form.payment_date.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Descrição -->
+          <div class="space-y-1.5">
+            <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Descrição
+            </label>
+            {{ form.description }}
+            {% if form.description.errors %}
+              {% for error in form.description.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="flex items-center justify-end gap-3">
+        <a href="{% url 'drivers:detail' driver.pk %}"
+           class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+          Cancelar
+        </a>
+        <button type="submit"
+                class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#e85d36] hover:bg-[#ed7d5e] active:bg-[#d64821] text-white text-sm font-medium rounded-lg transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          Salvar
+        </button>
+      </div>
+
+    </div>
+  </form>
+
+{% endblock %}

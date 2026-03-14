@@ -119,33 +119,33 @@
 
 ---
 
-### 🚗 Sprint 4 — Gestão de Motoristas (drivers)
+### [x] 🚗 Sprint 4 — Gestão de Motoristas (drivers)
 
-#### Tarefa 4.1 — Model de Motorista
+#### [x] Tarefa 4.1 — Model de Motorista
 
-- [ ] **4.1.1** Criar o app `drivers` com `python manage.py startapp drivers`.
-- [ ] **4.1.2** Registrar o app em `INSTALLED_APPS`.
-- [ ] **4.1.3** Criar model `Driver` com campos: `name`, `document` (CPF), `phone`, `email`, `cnh_number`, `cnh_category`, `cnh_expiration`, `admission_date`, `base_salary`, campos de endereço, `created_at`, `updated_at`.
-- [ ] **4.1.4** Criar model `DriverPayment` com campos: `driver` (FK), `amount`, `payment_date`, `description`, `created_at`, `updated_at`.
-- [ ] **4.1.5** Criar e aplicar migrations do app `drivers`.
+- [x] **4.1.1** Criar o app `drivers` com `python manage.py startapp drivers`.
+- [x] **4.1.2** Registrar o app em `INSTALLED_APPS`.
+- [x] **4.1.3** Criar model `Driver` com campos: `name`, `document` (CPF), `phone`, `email`, `cnh_number`, `cnh_category`, `cnh_expiration`, `admission_date`, `base_salary`, campos de endereço, `created_at`, `updated_at`.
+- [x] **4.1.4** Criar model `DriverPayment` com campos: `driver` (FK), `amount`, `payment_date`, `description`, `created_at`, `updated_at`.
+- [x] **4.1.5** Criar e aplicar migrations do app `drivers`.
 
-#### Tarefa 4.2 — Forms de Motorista
+#### [x] Tarefa 4.2 — Forms de Motorista
 
-- [ ] **4.2.1** Criar `drivers/forms.py` com `DriverForm` e `DriverPaymentForm`.
-- [ ] **4.2.2** Aplicar classes do Design System nos widgets.
+- [x] **4.2.1** Criar `drivers/forms.py` com `DriverForm` e `DriverPaymentForm`.
+- [x] **4.2.2** Aplicar classes do Design System nos widgets.
 
-#### Tarefa 4.3 — Views e URLs de Motorista
+#### [x] Tarefa 4.3 — Views e URLs de Motorista
 
-- [ ] **4.3.1** Criar CBVs: `DriverListView`, `DriverCreateView`, `DriverUpdateView`, `DriverDetailView`.
-- [ ] **4.3.2** `DriverDetailView`: incluir histórico de pagamentos no contexto.
-- [ ] **4.3.3** Criar view para adicionar pagamento ao motorista.
-- [ ] **4.3.4** Criar `drivers/urls.py` e incluir no `sgr/urls.py` com prefixo `motoristas/`.
+- [x] **4.3.1** Criar CBVs: `DriverListView`, `DriverCreateView`, `DriverUpdateView`, `DriverDetailView`.
+- [x] **4.3.2** `DriverDetailView`: incluir histórico de pagamentos no contexto.
+- [x] **4.3.3** Criar view para adicionar pagamento ao motorista.
+- [x] **4.3.4** Criar `drivers/urls.py` e incluir no `sgr/urls.py` com prefixo `motoristas/`.
 
-#### Tarefa 4.4 — Templates de Motorista
+#### [x] Tarefa 4.4 — Templates de Motorista
 
-- [ ] **4.4.1** Criar `templates/drivers/driver_list.html`.
-- [ ] **4.4.2** Criar `templates/drivers/driver_form.html` com CEP autocomplete via ViaCEP.
-- [ ] **4.4.3** Criar `templates/drivers/driver_detail.html` com dados completos e histórico de pagamentos.
+- [x] **4.4.1** Criar `templates/drivers/driver_list.html`.
+- [x] **4.4.2** Criar `templates/drivers/driver_form.html` com CEP autocomplete via ViaCEP.
+- [x] **4.4.3** Criar `templates/drivers/driver_detail.html` com dados completos e histórico de pagamentos.
 
 ---
 
