@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Entrar — SGR{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-sm">
+
+        <!-- Logo / título -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-[#1a2c42] tracking-wide">SGR</h1>
+            <p class="text-sm text-[#6b7280] mt-1">Sistema de Gestão de Reboque</p>
+        </div>
+
+        <!-- Card de login -->
+        <div class="bg-white rounded-2xl shadow-xl p-8">
+            <h2 class="text-base font-semibold text-[#1a2c42] mb-6">Acessar conta</h2>
+
+            <!-- Erros gerais (non_field_errors) -->
+            {% if form.non_field_errors %}
+                <div class="mb-5 rounded-lg bg-red-50 border border-red-200 px-4 py-3">
+                    {% for error in form.non_field_errors %}
+                        <p class="text-sm text-red-600">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+
+                <!-- Campo e-mail -->
+                <div class="space-y-1.5 mb-4">
+                    <label for="{{ form.username.id_for_label }}"
+                           class="block text-sm font-medium text-[#1a2c42]">
+                        E-mail
+                    </label>
+                    <input
+                        type="email"
+                        name="{{ form.username.html_name }}"
+                        id="{{ form.username.id_for_label }}"
+                        value="{{ form.username.value|default:'' }}"
+                        placeholder="seu@email.com"
+                        autocomplete="email"
+                        autofocus
+                        class="w-full px-3 py-2.5 text-sm bg-white border rounded-lg text-[#1a2c42] placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#e85d36]/30 focus:border-[#e85d36] transition-colors
+                               {% if form.username.errors %}border-red-400{% else %}border-gray-200{% endif %}"
+                    >
+                    {% for error in form.username.errors %}
+                        <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Campo senha -->
+                <div class="space-y-1.5 mb-6">
+                    <label for="{{ form.password.id_for_label }}"
+                           class="block text-sm font-medium text-[#1a2c42]">
+                        Senha
+                    </label>
+                    <input
+                        type="password"
+                        name="{{ form.password.html_name }}"
+                        id="{{ form.password.id_for_label }}"
+                        placeholder="••••••••"
+                        autocomplete="current-password"
+                        class="w-full px-3 py-2.5 text-sm bg-white border rounded-lg text-[#1a2c42] placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#e85d36]/30 focus:border-[#e85d36] transition-colors
+                               {% if form.password.errors %}border-red-400{% else %}border-gray-200{% endif %}"
+                    >
+                    {% for error in form.password.errors %}
+                        <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                {% endif %}
+
+                <button
+                    type="submit"
+                    class="w-full inline-flex items-center justify-center px-4 py-2.5 bg-[#e85d36] hover:bg-[#ed7d5e] active:bg-[#d64821] text-white text-sm font-medium rounded-lg transition-colors"
+                >
+                    Entrar
+                </button>
+            </form>
+        </div>
+
+        <p class="text-center text-xs text-[#6b7280] mt-6">
+            &copy; {% now "Y" %} SGR — Todos os direitos reservados
+        </p>
+    </div>
+</div>
+{% endblock %}

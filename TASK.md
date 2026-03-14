@@ -33,32 +33,32 @@
 
 ---
 
-### 🔐 Sprint 1 — Autenticação (accounts)
+### [x] 🔐 Sprint 1 — Autenticação (accounts)
 
-#### Tarefa 1.1 — App de Autenticação
+#### [x] Tarefa 1.1 — App de Autenticação
 
-- [ ] **1.1.1** Criar o app `accounts` com `python manage.py startapp accounts`.
-- [ ] **1.1.2** Registrar o app `accounts` em `INSTALLED_APPS` no `settings.py`.
-- [ ] **1.1.3** Criar modelo customizado `CustomUser` em `accounts/models.py` herdando de `AbstractUser`, substituindo `username` por `email` como campo de autenticação (`USERNAME_FIELD = 'email'`, `REQUIRED_FIELDS = []`).
-- [ ] **1.1.4** Configurar `AUTH_USER_MODEL = 'accounts.CustomUser'` no `settings.py`.
-- [ ] **1.1.5** Criar `accounts/backends.py` com `EmailBackend` para autenticação por e-mail.
-- [ ] **1.1.6** Configurar `AUTHENTICATION_BACKENDS` no `settings.py` para usar `EmailBackend`.
-- [ ] **1.1.7** Criar e aplicar migrations do app `accounts`.
+- [x] **1.1.1** Criar o app `accounts` com `python manage.py startapp accounts`.
+- [x] **1.1.2** Registrar o app `accounts` em `INSTALLED_APPS` no `settings.py`.
+- [x] **1.1.3** Criar modelo customizado `CustomUser` em `accounts/models.py` herdando de `AbstractUser`, substituindo `username` por `email` como campo de autenticação (`USERNAME_FIELD = 'email'`, `REQUIRED_FIELDS = []`).
+- [x] **1.1.4** Configurar `AUTH_USER_MODEL = 'accounts.CustomUser'` no `settings.py`.
+- [x] **1.1.5** Criar `accounts/backends.py` com `EmailBackend` para autenticação por e-mail.
+- [x] **1.1.6** Configurar `AUTHENTICATION_BACKENDS` no `settings.py` para usar `EmailBackend`.
+- [x] **1.1.7** Criar e aplicar migrations do app `accounts`.
 
-#### Tarefa 1.2 — Views e URLs de Login/Logout
+#### [x] Tarefa 1.2 — Views e URLs de Login/Logout
 
-- [ ] **1.2.1** Criar `accounts/views.py` com `LoginView` customizada (CBV) usando `AuthenticationForm` adaptado para e-mail.
-- [ ] **1.2.2** Criar `accounts/forms.py` com `EmailAuthenticationForm` (campo `username` renomeado para `email`).
-- [ ] **1.2.3** Criar `accounts/urls.py` com rotas: `login/`, `logout/`.
-- [ ] **1.2.4** Incluir `accounts/urls.py` no `sgr/urls.py`.
-- [ ] **1.2.5** Configurar `LOGIN_URL`, `LOGIN_REDIRECT_URL` e `LOGOUT_REDIRECT_URL` no `settings.py`.
+- [x] **1.2.1** Criar `accounts/views.py` com `LoginView` customizada (CBV) usando `AuthenticationForm` adaptado para e-mail.
+- [x] **1.2.2** Criar `accounts/forms.py` com `EmailAuthenticationForm` (campo `username` renomeado para `email`).
+- [x] **1.2.3** Criar `accounts/urls.py` com rotas: `login/`, `logout/`.
+- [x] **1.2.4** Incluir `accounts/urls.py` no `sgr/urls.py`.
+- [x] **1.2.5** Configurar `LOGIN_URL`, `LOGIN_REDIRECT_URL` e `LOGOUT_REDIRECT_URL` no `settings.py`.
 
-#### Tarefa 1.3 — Templates de Autenticação
+#### [x] Tarefa 1.3 — Templates de Autenticação
 
-- [ ] **1.3.1** Criar `templates/accounts/login.html` com layout centralizado, sem sidebar, com card de login.
-- [ ] **1.3.2** Aplicar Design System: fundo `#f8f9fb`, card branco com sombra, logo/título do sistema, campos de e-mail e senha com estilo padrão, botão CTA coral.
-- [ ] **1.3.3** Exibir mensagens de erro do formulário abaixo dos campos correspondentes.
-- [ ] **1.3.4** Adicionar `LoginRequiredMixin` a todas as views protegidas (será usado nas sprints seguintes).
+- [x] **1.3.1** Criar `templates/accounts/login.html` com layout centralizado, sem sidebar, com card de login.
+- [x] **1.3.2** Aplicar Design System: fundo `#f8f9fb`, card branco com sombra, logo/título do sistema, campos de e-mail e senha com estilo padrão, botão CTA coral.
+- [x] **1.3.3** Exibir mensagens de erro do formulário abaixo dos campos correspondentes.
+- [x] **1.3.4** Adicionar `LoginRequiredMixin` a todas as views protegidas (será usado nas sprints seguintes).
 
 ---
 
