@@ -1,0 +1,14 @@
+<header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+  <h1 class="text-lg font-semibold text-[#1a2c42]">{% block page_title %}Página Inicial{% endblock %}</h1>
+  <div class="flex items-center gap-4">
+      <span class="text-sm font-medium text-[#1a2c42]">{{ request.user.email|default:"Usuário" }}</span>
+      {% if user.is_authenticated %}
+      <form method="post" action="{% url 'logout' %}" class="inline">
+          {% csrf_token %}
+          <button type="submit" class="text-sm text-[#e85d36] hover:text-[#d64821] font-medium transition-colors">
+              Sair
+          </button>
+      </form>
+      {% endif %}
+  </div>
+</header>

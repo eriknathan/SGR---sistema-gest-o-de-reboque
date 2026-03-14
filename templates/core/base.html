@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block layout %}
+    <!-- Sidebar -->
+    {% include 'core/_sidebar.html' %}
+
+    <!-- Conteúdo Principal -->
+    <main class="ml-64 min-h-screen">
+        <!-- Topbar -->
+        {% include 'core/_topbar.html' %}
+        
+        <!-- Mensagens -->
+        <div class="px-6 pt-4">
+            {% include 'core/_messages.html' %}
+        </div>
+
+        <!-- Área de conteúdo -->
+        <div class="p-6">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+{% endblock %}

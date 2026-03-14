@@ -2,34 +2,34 @@
 
 ---
 
-### 🏁 Sprint 0 — Setup e Configuração do Projeto
+### [x] 🏁 Sprint 0 — Setup e Configuração do Projeto
 
-#### Tarefa 0.1 — Inicialização do Projeto Django
+#### [x] Tarefa 0.1 — Inicialização do Projeto Django
 
-- [ ] **0.1.1** Criar o ambiente virtual Python (`python -m venv venv`).
-- [ ] **0.1.2** Instalar Django 5.x e dependências iniciais (`django`, `python-decouple`, `pillow`, `requests`).
-- [ ] **0.1.3** Criar o projeto Django com `django-admin startproject sgr .`.
-- [ ] **0.1.4** Criar o arquivo `.env` na raiz com as variáveis: `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`.
-- [ ] **0.1.5** Configurar `settings.py` para ler variáveis via `python-decouple`.
-- [ ] **0.1.6** Configurar `LANGUAGE_CODE = 'pt-br'` e `TIME_ZONE = 'America/Sao_Paulo'` no `settings.py`.
-- [ ] **0.1.7** Criar o arquivo `.gitignore` com entradas para `.env`, `venv/`, `*.sqlite3`, `__pycache__/`.
-- [ ] **0.1.8** Inicializar repositório Git e fazer commit inicial.
+- [x] **0.1.1** Criar o ambiente virtual Python (`python -m venv venv`).
+- [x] **0.1.2** Instalar Django 5.x e dependências iniciais (`django`, `python-decouple`, `pillow`, `requests`).
+- [x] **0.1.3** Criar o projeto Django com `django-admin startproject sgr .`.
+- [x] **0.1.4** Criar o arquivo `.env` na raiz com as variáveis: `SECRET_KEY`, `DEBUG`, `ALLOWED_HOSTS`.
+- [x] **0.1.5** Configurar `settings.py` para ler variáveis via `python-decouple`.
+- [x] **0.1.6** Configurar `LANGUAGE_CODE = 'pt-br'` e `TIME_ZONE = 'America/Sao_Paulo'` no `settings.py`.
+- [x] **0.1.7** Criar o arquivo `.gitignore` com entradas para `.env`, `venv/`, `*.sqlite3`, `__pycache__/`.
+- [x] **0.1.8** Inicializar repositório Git e fazer commit inicial.
 
-#### Tarefa 0.2 — Configuração do TailwindCSS
+#### [x] Tarefa 0.2 — Configuração do TailwindCSS
 
-- [ ] **0.2.1** Adicionar o CDN do TailwindCSS ao template base com configuração de tema customizado (cores do Design System).
-- [ ] **0.2.2** Adicionar importação da fonte `Poppins` via Google Fonts no template base.
-- [ ] **0.2.3** Criar o arquivo `templates/base.html` com estrutura base: `<html>`, `<head>`, `<body>`, bloco `content`.
+- [x] **0.2.1** Adicionar o CDN do TailwindCSS ao template base com configuração de tema customizado (cores do Design System).
+- [x] **0.2.2** Adicionar importação da fonte `Poppins` via Google Fonts no template base.
+- [x] **0.2.3** Criar o arquivo `templates/base.html` com estrutura base: `<html>`, `<head>`, `<body>`, bloco `content`.
 
-#### Tarefa 0.3 — Estrutura de Templates
+#### [x] Tarefa 0.3 — Estrutura de Templates
 
-- [ ] **0.3.1** Criar a pasta `templates/` na raiz do projeto.
-- [ ] **0.3.2** Configurar `DIRS` no `settings.py` para apontar para `templates/`.
-- [ ] **0.3.3** Criar subpastas: `templates/accounts/`, `templates/customers/`, `templates/drivers/`, `templates/fleet/`, `templates/incidents/`, `templates/receipts/`, `templates/core/`.
-- [ ] **0.3.4** Criar `templates/core/base.html` com layout padrão (sidebar + topbar + área de conteúdo).
-- [ ] **0.3.5** Criar `templates/core/_sidebar.html` como partial/include da sidebar.
-- [ ] **0.3.6** Criar `templates/core/_topbar.html` como partial/include da topbar.
-- [ ] **0.3.7** Criar `templates/core/_messages.html` como partial para exibir Django messages.
+- [x] **0.3.1** Criar a pasta `templates/` na raiz do projeto.
+- [x] **0.3.2** Configurar `DIRS` no `settings.py` para apontar para `templates/`.
+- [x] **0.3.3** Criar subpastas: `templates/accounts/`, `templates/customers/`, `templates/drivers/`, `templates/fleet/`, `templates/incidents/`, `templates/receipts/`, `templates/core/`.
+- [x] **0.3.4** Criar `templates/core/base.html` com layout padrão (sidebar + topbar + área de conteúdo).
+- [x] **0.3.5** Criar `templates/core/_sidebar.html` como partial/include da sidebar.
+- [x] **0.3.6** Criar `templates/core/_topbar.html` como partial/include da topbar.
+- [x] **0.3.7** Criar `templates/core/_messages.html` como partial para exibir Django messages.
 
 ---
 
