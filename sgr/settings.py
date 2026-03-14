@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'customers.apps.CustomersConfig',
     'drivers.apps.DriversConfig',
+    'fleet.apps.FleetConfig',
 ]
 
 MIDDLEWARE = [

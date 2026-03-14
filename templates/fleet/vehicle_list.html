@@ -1,0 +1,184 @@
+{% extends 'core/base.html' %}
+
+{% block page_title %}Frota{% endblock %}
+
+{% block topbar_actions %}
+  <a href="{% url 'fleet:create' %}"
+     class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#e85d36] hover:bg-[#ed7d5e] active:bg-[#d64821] text-white text-sm font-medium rounded-lg transition-colors">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+    </svg>
+    Novo Veículo
+  </a>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Barra de busca -->
+  <div class="mb-6">
+    <form method="get" action="">
+      <div class="flex gap-3">
+        <div class="relative flex-1 max-w-md">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+          <input
+            type="text"
+            name="q"
+            value="{{ query }}"
+            placeholder="Buscar por placa, marca ou modelo..."
+            class="w-full pl-9 pr-3 py-2.5 text-sm bg-white border border-gray-200 rounded-lg text-[#1a2c42] placeholder-[#6b7280] focus:outline-none focus:ring-2 focus:ring-[#e85d36]/30 focus:border-[#e85d36] transition-colors">
+        </div>
+        <button type="submit"
+                class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+          Buscar
+        </button>
+        {% if query %}
+          <a href="{% url 'fleet:list' %}"
+             class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#6b7280] text-sm font-medium rounded-lg transition-colors">
+            Limpar
+          </a>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+
+  <!-- Tabela de veículos -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+
+    {% if vehicles %}
+      <table class="min-w-full divide-y divide-gray-100">
+        <thead class="bg-[#f8f9fb]">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Marca / Modelo</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Placa</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Ano</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Tipo</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Cor</th>
+            <th class="px-4 py-3 text-right text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Ações</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {% for vehicle in vehicles %}
+            <tr class="hover:bg-gray-50 transition-colors">
+
+              <!-- Marca / Modelo -->
+              <td class="px-4 py-3.5">
+                <p class="text-sm font-medium text-[#1a2c42]">{{ vehicle.brand }} {{ vehicle.model }}</p>
+              </td>
+
+              <!-- Placa -->
+              <td class="px-4 py-3.5">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded font-mono text-xs font-semibold bg-[#1a2c42] text-white tracking-widest">
+                  {{ vehicle.plate }}
+                </span>
+              </td>
+
+              <!-- Ano -->
+              <td class="px-4 py-3.5 text-sm text-[#6b7280]">{{ vehicle.year }}</td>
+
+              <!-- Tipo -->
+              <td class="px-4 py-3.5">
+                {% if vehicle.type == 'guincho' %}
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Guincho</span>
+                {% elif vehicle.type == 'caminhao' %}
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">Caminhão</span>
+                {% elif vehicle.type == 'utilitario' %}
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Utilitário</span>
+                {% else %}
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">{{ vehicle.get_type_display }}</span>
+                {% endif %}
+              </td>
+
+              <!-- Cor -->
+              <td class="px-4 py-3.5 text-sm text-[#6b7280]">{{ vehicle.color|default:"—" }}</td>
+
+              <!-- Ações -->
+              <td class="px-4 py-3.5 text-right">
+                <div class="inline-flex items-center gap-2">
+                  <a href="{% url 'fleet:detail' vehicle.pk %}"
+                     class="inline-flex items-center gap-1 px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-xs font-medium rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                    Ver
+                  </a>
+                  <a href="{% url 'fleet:edit' vehicle.pk %}"
+                     class="inline-flex items-center gap-1 px-3 py-1.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-xs font-medium rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                    Editar
+                  </a>
+                </div>
+              </td>
+
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    {% else %}
+      <!-- Estado vazio -->
+      <div class="flex flex-col items-center justify-center py-16 px-4">
+        <div class="w-16 h-16 bg-[#f8f9fb] rounded-full flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 17a2 2 0 01-2-2V7a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2M8 17h8M8 17v2m8-2v2M3 7h2M19 7h2M3 17h2M19 17h2"/>
+          </svg>
+        </div>
+        <p class="text-sm font-medium text-[#1a2c42] mb-1">Nenhum veículo encontrado.</p>
+        {% if query %}
+          <p class="text-sm text-[#6b7280]">Tente buscar com outros termos ou <a href="{% url 'fleet:list' %}" class="text-[#e85d36] hover:underline">limpe a busca</a>.</p>
+        {% else %}
+          <p class="text-sm text-[#6b7280]">Comece cadastrando um novo veículo.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+  </div>
+
+  <!-- Paginação -->
+  {% if page_obj and page_obj.paginator.num_pages > 1 %}
+    <div class="mt-6 flex items-center justify-between">
+      <p class="text-sm text-[#6b7280]">
+        Exibindo {{ page_obj.start_index }}–{{ page_obj.end_index }} de {{ page_obj.paginator.count }} veículos
+      </p>
+      <nav class="inline-flex items-center gap-1">
+        {% if page_obj.has_previous %}
+          <a href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.previous_page_number }}"
+             class="inline-flex items-center justify-center w-9 h-9 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm rounded-lg transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+            <span class="inline-flex items-center justify-center w-9 h-9 bg-[#e85d36] text-white text-sm font-medium rounded-lg">
+              {{ num }}
+            </span>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?{% if query %}q={{ query }}&{% endif %}page={{ num }}"
+               class="inline-flex items-center justify-center w-9 h-9 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm rounded-lg transition-colors">
+              {{ num }}
+            </a>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <a href="?{% if query %}q={{ query }}&{% endif %}page={{ page_obj.next_page_number }}"
+             class="inline-flex items-center justify-center w-9 h-9 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm rounded-lg transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        {% endif %}
+      </nav>
+    </div>
+  {% endif %}
+
+{% endblock %}

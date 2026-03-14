@@ -1,0 +1,164 @@
+{% extends 'core/base.html' %}
+
+{% block page_title %}{{ vehicle.brand }} {{ vehicle.model }} — {{ vehicle.plate }}{% endblock %}
+
+{% block topbar_actions %}
+  <div class="flex items-center gap-3">
+    <a href="{% url 'fleet:list' %}"
+       class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Voltar
+    </a>
+    <a href="{% url 'fleet:edit' vehicle.pk %}"
+       class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#e85d36] hover:bg-[#ed7d5e] active:bg-[#d64821] text-white text-sm font-medium rounded-lg transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+      </svg>
+      Editar Veículo
+    </a>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Cabeçalho do veículo -->
+  <div class="mb-6 flex items-center gap-4">
+    <div class="w-14 h-14 bg-[#1a2c42] rounded-full flex items-center justify-center flex-shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 17a2 2 0 01-2-2V7a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2M8 17h8M8 17v2m8-2v2M3 7h2M19 7h2M3 17h2M19 17h2"/>
+      </svg>
+    </div>
+    <div>
+      <div class="flex items-center gap-2 flex-wrap">
+        <h1 class="text-xl font-semibold text-[#1a2c42]">{{ vehicle.brand }} {{ vehicle.model }}</h1>
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded font-mono text-xs font-semibold bg-[#1a2c42] text-white tracking-widest">
+          {{ vehicle.plate }}
+        </span>
+        <!-- Badge tipo -->
+        {% if vehicle.type == 'guincho' %}
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Guincho</span>
+        {% elif vehicle.type == 'caminhao' %}
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">Caminhão</span>
+        {% elif vehicle.type == 'utilitario' %}
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Utilitário</span>
+        {% else %}
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">{{ vehicle.get_type_display }}</span>
+        {% endif %}
+      </div>
+      <p class="text-sm text-[#6b7280] mt-0.5">Cadastrado em {{ vehicle.created_at|date:"d/m/Y" }}</p>
+    </div>
+  </div>
+
+  <div class="space-y-6">
+
+    <!-- Seção: Dados do Veículo -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <h2 class="text-base font-semibold text-[#1a2c42] mb-5 pb-3 border-b border-gray-100">Dados do Veículo</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5">
+
+        <!-- Marca -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Marca</p>
+          <p class="text-sm text-[#1a2c42]">{{ vehicle.brand }}</p>
+        </div>
+
+        <!-- Modelo -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Modelo</p>
+          <p class="text-sm text-[#1a2c42]">{{ vehicle.model }}</p>
+        </div>
+
+        <!-- Tipo -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Tipo</p>
+          <p class="text-sm text-[#1a2c42]">{{ vehicle.get_type_display }}</p>
+        </div>
+
+        <!-- Placa -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Placa</p>
+          <p class="text-sm font-mono font-semibold text-[#1a2c42] tracking-widest">{{ vehicle.plate }}</p>
+        </div>
+
+        <!-- RENAVAM -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">RENAVAM</p>
+          <p class="text-sm font-mono text-[#1a2c42]">{{ vehicle.renavam }}</p>
+        </div>
+
+        <!-- Ano -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Ano</p>
+          <p class="text-sm text-[#1a2c42]">{{ vehicle.year }}</p>
+        </div>
+
+        <!-- Cor -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Cor</p>
+          <p class="text-sm text-[#1a2c42]">{{ vehicle.color|default:"—" }}</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Seção: Sinistros Atendidos -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100">
+        <h2 class="text-base font-semibold text-[#1a2c42]">Sinistros com este Veículo</h2>
+      </div>
+
+      {% if incidents %}
+        <table class="min-w-full divide-y divide-gray-100">
+          <thead class="bg-[#f8f9fb]">
+            <tr>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">#</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Data</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Valor</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            {% for incident in incidents %}
+              <tr class="hover:bg-gray-50 transition-colors">
+                <td class="px-4 py-3.5 text-sm text-[#6b7280]">
+                  <a href="{% url 'incidents:detail' incident.pk %}" class="font-mono hover:text-[#e85d36] transition-colors">
+                    #{{ incident.pk }}
+                  </a>
+                </td>
+                <td class="px-4 py-3.5 text-sm text-[#1a2c42]">{{ incident.created_at|date:"d/m/Y" }}</td>
+                <td class="px-4 py-3.5 text-sm text-[#1a2c42]">
+                  {% if incident.total_amount %}R$ {{ incident.total_amount|floatformat:2 }}{% else %}—{% endif %}
+                </td>
+                <td class="px-4 py-3.5">
+                  {% if incident.status == 'completed' %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Concluído</span>
+                  {% elif incident.status == 'in_progress' %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Em Andamento</span>
+                  {% elif incident.status == 'cancelled' %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Cancelado</span>
+                  {% else %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#e85d36]/10 text-[#e85d36]">Pendente</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="flex flex-col items-center justify-center py-12 px-4">
+          <div class="w-12 h-12 bg-[#f8f9fb] rounded-full flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <p class="text-sm text-[#6b7280]">Nenhum sinistro registrado para este veículo.</p>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+
+{% endblock %}

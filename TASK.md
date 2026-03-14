@@ -149,26 +149,26 @@
 
 ---
 
-### 🚛 Sprint 5 — Gestão de Frota (fleet)
+### [x] 🚛 Sprint 5 — Gestão de Frota (fleet)
 
-#### Tarefa 5.1 — Model de Veículo
+#### [x] Tarefa 5.1 — Model de Veículo
 
-- [ ] **5.1.1** Criar o app `fleet` com `python manage.py startapp fleet`.
-- [ ] **5.1.2** Registrar o app em `INSTALLED_APPS`.
-- [ ] **5.1.3** Criar model `Vehicle` com campos: `model`, `brand`, `plate`, `renavam`, `year`, `color`, `type`, `created_at`, `updated_at`.
-- [ ] **5.1.4** Criar e aplicar migrations do app `fleet`.
+- [x] **5.1.1** Criar o app `fleet` com `python manage.py startapp fleet`.
+- [x] **5.1.2** Registrar o app em `INSTALLED_APPS`.
+- [x] **5.1.3** Criar model `Vehicle` com campos: `model`, `brand`, `plate`, `renavam`, `year`, `color`, `type`, `created_at`, `updated_at`.
+- [x] **5.1.4** Criar e aplicar migrations do app `fleet`.
 
-#### Tarefa 5.2 — Forms, Views e URLs de Frota
+#### [x] Tarefa 5.2 — Forms, Views e URLs de Frota
 
-- [ ] **5.2.1** Criar `fleet/forms.py` com `VehicleForm`.
-- [ ] **5.2.2** Criar CBVs: `VehicleListView`, `VehicleCreateView`, `VehicleUpdateView`, `VehicleDetailView`.
-- [ ] **5.2.3** Criar `fleet/urls.py` e incluir no `sgr/urls.py` com prefixo `frota/`.
+- [x] **5.2.1** Criar `fleet/forms.py` com `VehicleForm`.
+- [x] **5.2.2** Criar CBVs: `VehicleListView`, `VehicleCreateView`, `VehicleUpdateView`, `VehicleDetailView`.
+- [x] **5.2.3** Criar `fleet/urls.py` e incluir no `sgr/urls.py` com prefixo `frota/`.
 
-#### Tarefa 5.3 — Templates de Frota
+#### [x] Tarefa 5.3 — Templates de Frota
 
-- [ ] **5.3.1** Criar `templates/fleet/vehicle_list.html` com busca por placa.
-- [ ] **5.3.2** Criar `templates/fleet/vehicle_form.html`.
-- [ ] **5.3.3** Criar `templates/fleet/vehicle_detail.html`.
+- [x] **5.3.1** Criar `templates/fleet/vehicle_list.html` com busca por placa.
+- [x] **5.3.2** Criar `templates/fleet/vehicle_form.html`.
+- [x] **5.3.3** Criar `templates/fleet/vehicle_detail.html`.
 
 ---
 

@@ -7,4 +7,5 @@ urlpatterns = [
     path('', include('core.urls', namespace='core')),
     path('clientes/', include('customers.urls', namespace='customers')),
     path('motoristas/', include('drivers.urls', namespace='drivers')),
+    path('frota/', include('fleet.urls', namespace='fleet')),
 ]

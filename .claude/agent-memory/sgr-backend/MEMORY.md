@@ -8,3 +8,4 @@
 - [project_core_app.md](project_core_app.md) — App core, DashboardView, padrão defensivo try/except para apps futuros (Sprint 2)
 - [project_customers_app.md](project_customers_app.md) — Customer model (PF/PJ), CustomerForm com Design System, CBVs de CRUD, URLs em /clientes/ (Sprint 3)
 - [project_drivers_app.md](project_drivers_app.md) — Driver + DriverPayment models, DriverForm/DriverPaymentForm, CBVs de CRUD + pagamento, URLs em /motoristas/ (Sprint 4)
+- [project_fleet_app.md](project_fleet_app.md) — Vehicle model, VehicleForm, CBVs de CRUD, URLs em /frota/ (Sprint 5)

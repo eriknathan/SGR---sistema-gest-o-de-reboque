@@ -1,0 +1,140 @@
+{% extends 'core/base.html' %}
+
+{% block page_title %}{% if object %}Editar Veículo{% else %}Novo Veículo{% endif %}{% endblock %}
+
+{% block topbar_actions %}
+  <a href="{% url 'fleet:list' %}"
+     class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Voltar
+  </a>
+{% endblock %}
+
+{% block content %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="space-y-6">
+
+      <!-- Seção: Identificação do Veículo -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <h2 class="text-base font-semibold text-[#1a2c42] mb-5 pb-3 border-b border-gray-100">Identificação</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+          <!-- Marca -->
+          <div class="space-y-1.5">
+            <label for="{{ form.brand.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Marca <span class="text-red-500">*</span>
+            </label>
+            {{ form.brand }}
+            {% if form.brand.errors %}
+              {% for error in form.brand.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Modelo -->
+          <div class="space-y-1.5">
+            <label for="{{ form.model.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Modelo <span class="text-red-500">*</span>
+            </label>
+            {{ form.model }}
+            {% if form.model.errors %}
+              {% for error in form.model.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Tipo -->
+          <div class="space-y-1.5">
+            <label for="{{ form.type.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Tipo <span class="text-red-500">*</span>
+            </label>
+            {{ form.type }}
+            {% if form.type.errors %}
+              {% for error in form.type.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Placa -->
+          <div class="space-y-1.5">
+            <label for="{{ form.plate.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Placa <span class="text-red-500">*</span>
+            </label>
+            {{ form.plate }}
+            {% if form.plate.errors %}
+              {% for error in form.plate.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- RENAVAM -->
+          <div class="space-y-1.5">
+            <label for="{{ form.renavam.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              RENAVAM <span class="text-red-500">*</span>
+            </label>
+            {{ form.renavam }}
+            {% if form.renavam.errors %}
+              {% for error in form.renavam.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Ano -->
+          <div class="space-y-1.5">
+            <label for="{{ form.year.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Ano <span class="text-red-500">*</span>
+            </label>
+            {{ form.year }}
+            {% if form.year.errors %}
+              {% for error in form.year.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Cor -->
+          <div class="space-y-1.5">
+            <label for="{{ form.color.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Cor
+            </label>
+            {{ form.color }}
+            {% if form.color.errors %}
+              {% for error in form.color.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="flex items-center justify-end gap-3">
+        <a href="{% url 'fleet:list' %}"
+           class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+          Cancelar
+        </a>
+        <button type="submit"
+                class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#e85d36] hover:bg-[#ed7d5e] active:bg-[#d64821] text-white text-sm font-medium rounded-lg transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          Salvar
+        </button>
+      </div>
+
+    </div>
+  </form>
+
+{% endblock %}
