@@ -62,60 +62,60 @@
 
 ---
 
-### 📊 Sprint 2 — Dashboard Principal (core)
+### [x] 📊 Sprint 2 — Dashboard Principal (core)
 
-#### Tarefa 2.1 — App Core e Dashboard
+#### [x] Tarefa 2.1 — App Core e Dashboard
 
-- [ ] **2.1.1** Criar o app `core` com `python manage.py startapp core`.
-- [ ] **2.1.2** Registrar o app em `INSTALLED_APPS`.
-- [ ] **2.1.3** Criar `core/views.py` com `DashboardView` (CBV, `LoginRequiredMixin`, `TemplateView`).
-- [ ] **2.1.4** Criar `core/urls.py` com rota `''` → `DashboardView`.
-- [ ] **2.1.5** Incluir `core/urls.py` no `sgr/urls.py` como rota raiz.
+- [x] **2.1.1** Criar o app `core` com `python manage.py startapp core`.
+- [x] **2.1.2** Registrar o app em `INSTALLED_APPS`.
+- [x] **2.1.3** Criar `core/views.py` com `DashboardView` (CBV, `LoginRequiredMixin`, `TemplateView`).
+- [x] **2.1.4** Criar `core/urls.py` com rota `''` → `DashboardView`.
+- [x] **2.1.5** Incluir `core/urls.py` no `sgr/urls.py` como rota raiz.
 
-#### Tarefa 2.2 — Template do Dashboard
+#### [x] Tarefa 2.2 — Template do Dashboard
 
-- [ ] **2.2.1** Criar `templates/core/dashboard.html` estendendo `base.html`.
-- [ ] **2.2.2** Criar seção de cards de resumo com: Total de Sinistros, Sinistros do Mês, Total de Clientes, Motoristas Ativos.
-- [ ] **2.2.3** Estilizar cards de resumo com ícone, valor em destaque e título, seguindo o Design System.
-- [ ] **2.2.4** Passar os dados dos cards via contexto na `DashboardView` (contagens via ORM do Django).
-- [ ] **2.2.5** Criar seção "Últimos Sinistros" com tabela dos 5 sinistros mais recentes.
+- [x] **2.2.1** Criar `templates/core/dashboard.html` estendendo `base.html`.
+- [x] **2.2.2** Criar seção de cards de resumo com: Total de Sinistros, Sinistros do Mês, Total de Clientes, Motoristas Ativos.
+- [x] **2.2.3** Estilizar cards de resumo com ícone, valor em destaque e título, seguindo o Design System.
+- [x] **2.2.4** Passar os dados dos cards via contexto na `DashboardView` (contagens via ORM do Django).
+- [x] **2.2.5** Criar seção "Últimos Sinistros" com tabela dos 5 sinistros mais recentes.
 
 ---
 
-### 👥 Sprint 3 — Gestão de Clientes (customers)
+### [x] 👥 Sprint 3 — Gestão de Clientes (customers)
 
-#### Tarefa 3.1 — Model de Cliente
+#### [x] Tarefa 3.1 — Model de Cliente
 
-- [ ] **3.1.1** Criar o app `customers` com `python manage.py startapp customers`.
-- [ ] **3.1.2** Registrar o app em `INSTALLED_APPS`.
-- [ ] **3.1.3** Criar model `Customer` em `customers/models.py` com campos: `type` (PF/PJ), `name`, `document` (CPF/CNPJ), `phone`, `email`, `street`, `number`, `complement`, `neighborhood`, `city`, `state`, `zip_code`, `created_at`, `updated_at`.
-- [ ] **3.1.4** Criar e aplicar migrations do app `customers`.
+- [x] **3.1.1** Criar o app `customers` com `python manage.py startapp customers`.
+- [x] **3.1.2** Registrar o app em `INSTALLED_APPS`.
+- [x] **3.1.3** Criar model `Customer` em `customers/models.py` com campos: `type` (PF/PJ), `name`, `document` (CPF/CNPJ), `phone`, `email`, `street`, `number`, `complement`, `neighborhood`, `city`, `state`, `zip_code`, `created_at`, `updated_at`.
+- [x] **3.1.4** Criar e aplicar migrations do app `customers`.
 
-#### Tarefa 3.2 — Forms de Cliente
+#### [x] Tarefa 3.2 — Forms de Cliente
 
-- [ ] **3.2.1** Criar `customers/forms.py` com `CustomerForm` usando `ModelForm`.
-- [ ] **3.2.2** Aplicar classes do Design System (Tailwind) nos widgets dos campos via `attrs`.
-- [ ] **3.2.3** Tornar campos de endereço não obrigatórios no formulário.
+- [x] **3.2.1** Criar `customers/forms.py` com `CustomerForm` usando `ModelForm`.
+- [x] **3.2.2** Aplicar classes do Design System (Tailwind) nos widgets dos campos via `attrs`.
+- [x] **3.2.3** Tornar campos de endereço não obrigatórios no formulário.
 
-#### Tarefa 3.3 — Views e URLs de Cliente
+#### [x] Tarefa 3.3 — Views e URLs de Cliente
 
-- [ ] **3.3.1** Criar `customers/views.py` com as CBVs: `CustomerListView`, `CustomerCreateView`, `CustomerUpdateView`, `CustomerDetailView`.
-- [ ] **3.3.2** Todas as views devem usar `LoginRequiredMixin`.
-- [ ] **3.3.3** `CustomerListView`: listar todos os clientes com busca por nome/documento via `GET` parameter.
-- [ ] **3.3.4** `CustomerCreateView`: salvar novo cliente com `success_message` e redirecionar para lista.
-- [ ] **3.3.5** `CustomerUpdateView`: editar cliente existente.
-- [ ] **3.3.6** `CustomerDetailView`: exibir dados do cliente e histórico de sinistros vinculados.
-- [ ] **3.3.7** Criar `customers/urls.py` com rotas: `''`, `create/`, `<pk>/edit/`, `<pk>/`.
-- [ ] **3.3.8** Incluir `customers/urls.py` no `sgr/urls.py` com prefixo `clientes/`.
+- [x] **3.3.1** Criar `customers/views.py` com as CBVs: `CustomerListView`, `CustomerCreateView`, `CustomerUpdateView`, `CustomerDetailView`.
+- [x] **3.3.2** Todas as views devem usar `LoginRequiredMixin`.
+- [x] **3.3.3** `CustomerListView`: listar todos os clientes com busca por nome/documento via `GET` parameter.
+- [x] **3.3.4** `CustomerCreateView`: salvar novo cliente com `success_message` e redirecionar para lista.
+- [x] **3.3.5** `CustomerUpdateView`: editar cliente existente.
+- [x] **3.3.6** `CustomerDetailView`: exibir dados do cliente e histórico de sinistros vinculados.
+- [x] **3.3.7** Criar `customers/urls.py` com rotas: `''`, `create/`, `<pk>/edit/`, `<pk>/`.
+- [x] **3.3.8** Incluir `customers/urls.py` no `sgr/urls.py` com prefixo `clientes/`.
 
-#### Tarefa 3.4 — Templates de Cliente
+#### [x] Tarefa 3.4 — Templates de Cliente
 
-- [ ] **3.4.1** Criar `templates/customers/customer_list.html` com tabela de clientes e barra de busca.
-- [ ] **3.4.2** Criar `templates/customers/customer_form.html` com formulário de criação/edição.
-- [ ] **3.4.3** Adicionar campo de CEP com botão "Buscar CEP" que faz fetch para ViaCEP via JavaScript e preenche os campos de endereço automaticamente.
-- [ ] **3.4.4** Adicionar campo de CNPJ com botão "Buscar CNPJ" que faz fetch para API de CNPJ via JavaScript para clientes PJ.
-- [ ] **3.4.5** Criar `templates/customers/customer_detail.html` com dados do cliente e tabela de histórico de sinistros.
-- [ ] **3.4.6** Adicionar toggle de tipo (PF/PJ) que exibe/oculta campos correspondentes via JavaScript.
+- [x] **3.4.1** Criar `templates/customers/customer_list.html` com tabela de clientes e barra de busca.
+- [x] **3.4.2** Criar `templates/customers/customer_form.html` com formulário de criação/edição.
+- [x] **3.4.3** Adicionar campo de CEP com botão "Buscar CEP" que faz fetch para ViaCEP via JavaScript e preenche os campos de endereço automaticamente.
+- [x] **3.4.4** Adicionar campo de CNPJ com botão "Buscar CNPJ" que faz fetch para API de CNPJ via JavaScript para clientes PJ.
+- [x] **3.4.5** Criar `templates/customers/customer_detail.html` com dados do cliente e tabela de histórico de sinistros.
+- [x] **3.4.6** Adicionar toggle de tipo (PF/PJ) que exibe/oculta campos correspondentes via JavaScript.
 
 ---
 

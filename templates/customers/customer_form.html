@@ -1,0 +1,327 @@
+{% extends 'core/base.html' %}
+
+{% block page_title %}{% if object %}Editar Cliente{% else %}Novo Cliente{% endif %}{% endblock %}
+
+{% block topbar_actions %}
+  <a href="{% url 'customers:list' %}"
+     class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Voltar
+  </a>
+{% endblock %}
+
+{% block content %}
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="space-y-6">
+
+      <!-- Seção: Dados Gerais -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <h2 class="text-base font-semibold text-[#1a2c42] mb-5 pb-3 border-b border-gray-100">Dados Gerais</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <!-- Tipo -->
+          <div class="space-y-1.5">
+            <label for="{{ form.type.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Tipo <span class="text-red-500">*</span>
+            </label>
+            {{ form.type }}
+            {% if form.type.errors %}
+              {% for error in form.type.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Documento (CPF/CNPJ) -->
+          <div class="space-y-1.5">
+            <label for="{{ form.document.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              CPF / CNPJ <span class="text-red-500">*</span>
+            </label>
+            <div class="flex gap-2">
+              {{ form.document }}
+              <!-- Botão Buscar CNPJ — visível apenas para PJ -->
+              <div id="cnpj-btn-wrapper" class="hidden">
+                <button type="button" id="btn-buscar-cnpj"
+                        class="whitespace-nowrap inline-flex items-center gap-1.5 px-3 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                  </svg>
+                  Buscar CNPJ
+                </button>
+              </div>
+            </div>
+            {% if form.document.errors %}
+              {% for error in form.document.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Nome -->
+          <div class="space-y-1.5 md:col-span-2">
+            <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Nome / Razão Social <span class="text-red-500">*</span>
+            </label>
+            {{ form.name }}
+            {% if form.name.errors %}
+              {% for error in form.name.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Telefone -->
+          <div class="space-y-1.5">
+            <label for="{{ form.phone.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Telefone
+            </label>
+            {{ form.phone }}
+            {% if form.phone.errors %}
+              {% for error in form.phone.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- E-mail -->
+          <div class="space-y-1.5">
+            <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              E-mail
+            </label>
+            {{ form.email }}
+            {% if form.email.errors %}
+              {% for error in form.email.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Seção: Endereço -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <h2 class="text-base font-semibold text-[#1a2c42] mb-5 pb-3 border-b border-gray-100">Endereço</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+          <!-- CEP -->
+          <div class="space-y-1.5">
+            <label for="{{ form.zip_code.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              CEP
+            </label>
+            <div class="flex gap-2">
+              {{ form.zip_code }}
+              <button type="button" id="btn-buscar-cep"
+                      class="whitespace-nowrap inline-flex items-center gap-1.5 px-3 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                Buscar CEP
+              </button>
+            </div>
+            {% if form.zip_code.errors %}
+              {% for error in form.zip_code.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Logradouro -->
+          <div class="space-y-1.5 lg:col-span-2">
+            <label for="{{ form.street.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Logradouro
+            </label>
+            {{ form.street }}
+            {% if form.street.errors %}
+              {% for error in form.street.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Número -->
+          <div class="space-y-1.5">
+            <label for="{{ form.number.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Número
+            </label>
+            {{ form.number }}
+            {% if form.number.errors %}
+              {% for error in form.number.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Complemento -->
+          <div class="space-y-1.5">
+            <label for="{{ form.complement.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Complemento
+            </label>
+            {{ form.complement }}
+            {% if form.complement.errors %}
+              {% for error in form.complement.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Bairro -->
+          <div class="space-y-1.5">
+            <label for="{{ form.neighborhood.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Bairro
+            </label>
+            {{ form.neighborhood }}
+            {% if form.neighborhood.errors %}
+              {% for error in form.neighborhood.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- Cidade -->
+          <div class="space-y-1.5 md:col-span-2 lg:col-span-2">
+            <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              Cidade
+            </label>
+            {{ form.city }}
+            {% if form.city.errors %}
+              {% for error in form.city.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+          <!-- UF -->
+          <div class="space-y-1.5">
+            <label for="{{ form.state.id_for_label }}" class="block text-sm font-medium text-[#1a2c42]">
+              UF
+            </label>
+            {{ form.state }}
+            {% if form.state.errors %}
+              {% for error in form.state.errors %}
+                <p class="text-xs text-red-500 mt-1">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="flex items-center justify-end gap-3">
+        <a href="{% url 'customers:list' %}"
+           class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+          Cancelar
+        </a>
+        <button type="submit"
+                class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#e85d36] hover:bg-[#ed7d5e] active:bg-[#d64821] text-white text-sm font-medium rounded-lg transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          Salvar
+        </button>
+      </div>
+
+    </div>
+  </form>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // ─── Toggle PF / PJ (Tarefa 3.4.6) ───────────────────────────────────────
+  const typeSelect       = document.getElementById('id_type');
+  const documentField    = document.getElementById('id_document');
+  const cnpjBtnWrapper   = document.getElementById('cnpj-btn-wrapper');
+
+  function applyTypeToggle(type) {
+    if (type === 'PJ') {
+      cnpjBtnWrapper.classList.remove('hidden');
+      documentField.placeholder = '00.000.000/0000-00';
+    } else {
+      cnpjBtnWrapper.classList.add('hidden');
+      documentField.placeholder = '000.000.000-00';
+    }
+  }
+
+  // Aplicar ao carregar com valor já selecionado (edição)
+  applyTypeToggle(typeSelect.value);
+
+  typeSelect.addEventListener('change', function () {
+    applyTypeToggle(this.value);
+  });
+
+
+  // ─── ViaCEP — autopreenchimento de endereço (Tarefa 3.4.3) ───────────────
+  function buscarCep() {
+    const cep = document.getElementById('id_zip_code').value.replace(/\D/g, '');
+    if (cep.length !== 8) {
+      alert('CEP inválido. Informe 8 dígitos.');
+      return;
+    }
+    fetch('https://viacep.com.br/ws/' + cep + '/json/')
+      .then(function (response) { return response.json(); })
+      .then(function (data) {
+        if (data.erro) {
+          alert('CEP não encontrado.');
+          return;
+        }
+        document.getElementById('id_street').value       = data.logradouro || '';
+        document.getElementById('id_neighborhood').value = data.bairro     || '';
+        document.getElementById('id_city').value         = data.localidade || '';
+        document.getElementById('id_state').value        = data.uf         || '';
+      })
+      .catch(function () {
+        alert('Erro ao consultar o CEP. Tente novamente.');
+      });
+  }
+
+  // Evento blur no campo CEP
+  document.getElementById('id_zip_code').addEventListener('blur', function () {
+    if (this.value.replace(/\D/g, '').length === 8) {
+      buscarCep();
+    }
+  });
+
+  // Botão "Buscar CEP"
+  document.getElementById('btn-buscar-cep').addEventListener('click', function () {
+    buscarCep();
+  });
+
+
+  // ─── BrasilAPI — autopreenchimento de CNPJ (Tarefa 3.4.4) ────────────────
+  document.getElementById('btn-buscar-cnpj').addEventListener('click', function () {
+    const cnpj = document.getElementById('id_document').value.replace(/[\.\-\/]/g, '');
+    if (cnpj.length !== 14) {
+      alert('CNPJ inválido. Informe 14 dígitos.');
+      return;
+    }
+    fetch('https://brasilapi.com.br/api/cnpj/v1/' + cnpj)
+      .then(function (response) {
+        if (!response.ok) { throw new Error('not_found'); }
+        return response.json();
+      })
+      .then(function (data) {
+        document.getElementById('id_name').value  = data.razao_social    || '';
+        document.getElementById('id_email').value = data.email           || '';
+        document.getElementById('id_phone').value = data.ddd_telefone_1  || '';
+
+        // Se tiver CEP na BrasilAPI, preenche e dispara ViaCEP
+        if (data.cep) {
+          document.getElementById('id_zip_code').value = data.cep;
+          buscarCep();
+        }
+      })
+      .catch(function () {
+        alert('CNPJ não encontrado.');
+      });
+  });
+</script>
+{% endblock %}

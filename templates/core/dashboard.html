@@ -1,0 +1,132 @@
+{% extends 'core/base.html' %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+
+  <!-- Cabeçalho da página -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-bold text-[#1a2c42]">Visão Geral</h2>
+    <p class="text-sm text-[#6b7280] mt-1">Resumo das operações do sistema de reboque.</p>
+  </div>
+
+  <!-- Cards de Resumo -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+
+    <!-- Card: Total de Sinistros -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center gap-5">
+      <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#e85d36]/10 flex items-center justify-center">
+        <svg class="w-6 h-6 text-[#e85d36]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-3xl font-bold text-[#1a2c42] leading-none">{{ total_incidents|default:"0" }}</p>
+        <p class="text-sm text-[#6b7280] mt-1.5">Total de Sinistros</p>
+      </div>
+    </div>
+
+    <!-- Card: Sinistros do Mês -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center gap-5">
+      <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#1a2c42]/8 flex items-center justify-center" style="background-color: rgba(26,44,66,0.08);">
+        <svg class="w-6 h-6 text-[#1a2c42]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-3xl font-bold text-[#1a2c42] leading-none">{{ month_incidents|default:"0" }}</p>
+        <p class="text-sm text-[#6b7280] mt-1.5">Sinistros do Mês</p>
+      </div>
+    </div>
+
+    <!-- Card: Total de Clientes -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center gap-5">
+      <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-[#e85d36]/10 flex items-center justify-center">
+        <svg class="w-6 h-6 text-[#e85d36]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-3xl font-bold text-[#1a2c42] leading-none">{{ total_customers|default:"0" }}</p>
+        <p class="text-sm text-[#6b7280] mt-1.5">Total de Clientes</p>
+      </div>
+    </div>
+
+    <!-- Card: Motoristas Ativos -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex items-center gap-5">
+      <div class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: rgba(26,44,66,0.08);">
+        <svg class="w-6 h-6 text-[#1a2c42]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10l1 1h1m8-1h3l3-3V9.5L16 8h-3v8zm0 0H9" />
+        </svg>
+      </div>
+      <div>
+        <p class="text-3xl font-bold text-[#1a2c42] leading-none">{{ total_drivers|default:"0" }}</p>
+        <p class="text-sm text-[#6b7280] mt-1.5">Motoristas Ativos</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Seção: Últimos Sinistros -->
+  <div>
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-base font-semibold text-[#1a2c42]">Últimos Sinistros</h3>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <table class="min-w-full divide-y divide-gray-100">
+        <thead class="bg-[#f8f9fb]">
+          <tr>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">#</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Cliente</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Motorista</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Data</th>
+            <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Status</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {% for incident in recent_incidents %}
+            <tr class="hover:bg-gray-50 transition-colors">
+              <td class="px-4 py-3.5 text-sm font-medium text-[#1a2c42]">{{ incident.id }}</td>
+              <td class="px-4 py-3.5 text-sm text-[#1a2c42]">{{ incident.customer }}</td>
+              <td class="px-4 py-3.5 text-sm text-[#1a2c42]">{{ incident.driver }}</td>
+              <td class="px-4 py-3.5 text-sm text-[#6b7280]">{{ incident.created_at|date:"d/m/Y" }}</td>
+              <td class="px-4 py-3.5">
+                {% if incident.status == 'concluded' %}
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    Concluído
+                  </span>
+                {% elif incident.status == 'in_progress' %}
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                    Em Andamento
+                  </span>
+                {% elif incident.status == 'cancelled' %}
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    Cancelado
+                  </span>
+                {% else %}
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#e85d36]/10 text-[#e85d36]">
+                    Pendente
+                  </span>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5" class="px-4 py-10 text-center text-sm text-[#6b7280]">
+                Nenhum sinistro registrado ainda.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}

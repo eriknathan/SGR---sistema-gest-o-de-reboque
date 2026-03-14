@@ -1,0 +1,220 @@
+{% extends 'core/base.html' %}
+
+{% block page_title %}{{ customer.name }}{% endblock %}
+
+{% block topbar_actions %}
+  <div class="flex items-center gap-3">
+    <a href="{% url 'customers:list' %}"
+       class="inline-flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-200 text-[#1a2c42] text-sm font-medium rounded-lg transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Voltar
+    </a>
+    <a href="{% url 'customers:edit' customer.pk %}"
+       class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#e85d36] hover:bg-[#ed7d5e] active:bg-[#d64821] text-white text-sm font-medium rounded-lg transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+      </svg>
+      Editar Cliente
+    </a>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Cabeçalho do cliente -->
+  <div class="mb-6 flex items-center gap-3">
+    <div class="w-12 h-12 bg-[#1a2c42] rounded-full flex items-center justify-center flex-shrink-0">
+      <span class="text-lg font-semibold text-white">{{ customer.name|slice:':1'|upper }}</span>
+    </div>
+    <div>
+      <div class="flex items-center gap-2">
+        <h1 class="text-xl font-semibold text-[#1a2c42]">{{ customer.name }}</h1>
+        {% if customer.type == 'PF' %}
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Pessoa Física</span>
+        {% else %}
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Pessoa Jurídica</span>
+        {% endif %}
+      </div>
+      <p class="text-sm text-[#6b7280] mt-0.5">Cadastrado em {{ customer.created_at|date:"d/m/Y" }}</p>
+    </div>
+  </div>
+
+  <div class="space-y-6">
+
+    <!-- Seção: Dados Gerais -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <h2 class="text-base font-semibold text-[#1a2c42] mb-5 pb-3 border-b border-gray-100">Dados Gerais</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
+
+        <!-- Tipo -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Tipo</p>
+          <p class="text-sm text-[#1a2c42]">{{ customer.get_type_display }}</p>
+        </div>
+
+        <!-- Documento -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">CPF / CNPJ</p>
+          <p class="text-sm text-[#1a2c42]">{{ customer.document|default:"—" }}</p>
+        </div>
+
+        <!-- Telefone -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Telefone</p>
+          <p class="text-sm text-[#1a2c42]">
+            {% if customer.phone %}
+              <a href="tel:{{ customer.phone }}" class="hover:text-[#e85d36] transition-colors">{{ customer.phone }}</a>
+            {% else %}
+              —
+            {% endif %}
+          </p>
+        </div>
+
+        <!-- E-mail -->
+        <div>
+          <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">E-mail</p>
+          <p class="text-sm text-[#1a2c42]">
+            {% if customer.email %}
+              <a href="mailto:{{ customer.email }}" class="hover:text-[#e85d36] transition-colors">{{ customer.email }}</a>
+            {% else %}
+              —
+            {% endif %}
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Seção: Endereço -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+      <h2 class="text-base font-semibold text-[#1a2c42] mb-5 pb-3 border-b border-gray-100">Endereço</h2>
+
+      {% if customer.zip_code or customer.street or customer.city %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
+
+          <!-- CEP -->
+          <div>
+            <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">CEP</p>
+            <p class="text-sm text-[#1a2c42]">{{ customer.zip_code|default:"—" }}</p>
+          </div>
+
+          <!-- Logradouro e Número -->
+          <div>
+            <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Logradouro</p>
+            <p class="text-sm text-[#1a2c42]">
+              {% if customer.street %}
+                {{ customer.street }}{% if customer.number %}, {{ customer.number }}{% endif %}
+              {% else %}
+                —
+              {% endif %}
+            </p>
+          </div>
+
+          <!-- Complemento -->
+          <div>
+            <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Complemento</p>
+            <p class="text-sm text-[#1a2c42]">{{ customer.complement|default:"—" }}</p>
+          </div>
+
+          <!-- Bairro -->
+          <div>
+            <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Bairro</p>
+            <p class="text-sm text-[#1a2c42]">{{ customer.neighborhood|default:"—" }}</p>
+          </div>
+
+          <!-- Cidade -->
+          <div>
+            <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">Cidade</p>
+            <p class="text-sm text-[#1a2c42]">{{ customer.city|default:"—" }}</p>
+          </div>
+
+          <!-- UF -->
+          <div>
+            <p class="text-xs font-medium text-[#6b7280] uppercase tracking-wider mb-1">UF</p>
+            <p class="text-sm text-[#1a2c42]">{{ customer.state|default:"—" }}</p>
+          </div>
+
+        </div>
+      {% else %}
+        <p class="text-sm text-[#6b7280]">Nenhum endereço cadastrado.</p>
+      {% endif %}
+    </div>
+
+    <!-- Seção: Histórico de Sinistros -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-100">
+        <h2 class="text-base font-semibold text-[#1a2c42]">Histórico de Sinistros</h2>
+      </div>
+
+      {% if incidents %}
+        <table class="min-w-full divide-y divide-gray-100">
+          <thead class="bg-[#f8f9fb]">
+            <tr>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">#</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Data</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Veículo</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Valor</th>
+              <th class="px-4 py-3 text-left text-xs font-semibold text-[#6b7280] uppercase tracking-wider">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            {% for incident in incidents %}
+              <tr class="hover:bg-gray-50 transition-colors">
+                <!-- # -->
+                <td class="px-4 py-3.5 text-sm text-[#6b7280]">
+                  <a href="{% url 'incidents:detail' incident.pk %}" class="font-mono hover:text-[#e85d36] transition-colors">
+                    #{{ incident.pk }}
+                  </a>
+                </td>
+                <!-- Data -->
+                <td class="px-4 py-3.5 text-sm text-[#1a2c42]">{{ incident.created_at|date:"d/m/Y" }}</td>
+                <!-- Veículo -->
+                <td class="px-4 py-3.5 text-sm text-[#1a2c42]">
+                  {% if incident.vehicle_plate %}
+                    {{ incident.vehicle_plate }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </td>
+                <!-- Valor -->
+                <td class="px-4 py-3.5 text-sm text-[#1a2c42]">
+                  {% if incident.total_amount %}
+                    R$ {{ incident.total_amount|floatformat:2 }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </td>
+                <!-- Status -->
+                <td class="px-4 py-3.5">
+                  {% if incident.status == 'completed' %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Concluído</span>
+                  {% elif incident.status == 'in_progress' %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Em Andamento</span>
+                  {% elif incident.status == 'cancelled' %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Cancelado</span>
+                  {% else %}
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#e85d36]/10 text-[#e85d36]">Pendente</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="flex flex-col items-center justify-center py-12 px-4">
+          <div class="w-12 h-12 bg-[#f8f9fb] rounded-full flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#6b7280]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <p class="text-sm text-[#6b7280]">Nenhum sinistro registrado.</p>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
+
+{% endblock %}
